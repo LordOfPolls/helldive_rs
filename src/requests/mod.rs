@@ -1,5 +1,6 @@
 use crate::BASE_URL;
 use crate::models::api::{Status, WarInfo};
+use crate::models::Language;
 
 
 /// Get the current status of a war
@@ -7,13 +8,11 @@ use crate::models::api::{Status, WarInfo};
 /// Arguments:
 ///    war_id: i64 - The ID of the war to get the status of
 ///    language: &str - The language to get the status in, in language-country format (e.g. en-US)
-pub async fn get_status(war_id: i64, language: &str) -> Result<Status, reqwest::Error> {
+pub async fn get_status(war_id: i64, language: Language) -> Result<Status, reqwest::Error> {
     let url = format!("{}/WarSeason/{}/Status", BASE_URL, war_id);
 
-    let language = if language.is_empty() { "en-US" } else { language };
-
     let mut headers = reqwest::header::HeaderMap::new();
-    headers.insert("Accept-Language", language.parse().unwrap());
+    headers.insert("Accept-Language", language.to_str().parse().unwrap());
 
     let response = reqwest::Client::new()
         .get(url)

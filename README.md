@@ -37,13 +37,14 @@ For more details about the structs and their fields, please refer to the source 
 
 ```rust
 use helldive_rs;
+use helldive_rs::Language;
 use tokio;
 
 #[tokio::main]
 async fn main() {
     // Get the current status of a war
     let war_id = 801; // The war ID for the current war
-    let status = helldive_rs ::get_status(war_id, "en-US").await.unwrap();
+    let status = helldive_rs ::get_status(war_id, Language::English).await.unwrap();
     println!("Current Message: {}", status.global_events[0].message);
 
     // Get information about a specific war

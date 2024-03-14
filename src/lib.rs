@@ -5,16 +5,13 @@ mod load_res;
 mod models;
 mod requests;
 
-pub use models::api::{Status, WarInfo};
-pub use models::Planet;
+pub use models::api::{Status, WarInfo, PlanetStatus, PlanetAttack, Campaign, GlobalEvent, HomeWorld, Position, PlanetInfo};
+pub use models::{Planet, Faction, Sector, Language};
 pub use requests::{get_status, get_war_info};
 
 
 /// The base URL for the Helldivers API
 pub const BASE_URL: &str = "https://api.live.prod.thehelldiversgame.com/api";
-
-/// The available languages for the game
-pub static AVAILABLE_LANGUAGES: Lazy<Vec<&str>> = Lazy::new(|| vec!["en-US", "de-DE", "es-ES", "ru-RU", "fr-FR", "it-IT", "pl-PL", "zh-Hans"]);
 
 /// The planets in the game
 pub static PLANETS: Lazy<HashMap<i64, Planet>> = Lazy::new(load_res::load_planets);
@@ -56,7 +53,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_get_status() {
-        let _status = match get_status(801, "").await {
+        let _status = match get_status(801, Language::English).await{
             Ok(status) => status,
             Err(e) => panic!("Error: {}", e),
         };
@@ -113,7 +110,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_status_planet_name() {
-        let status = match get_status(801, "").await {
+        let status = match get_status(801, Language::English).await {
             Ok(status) => status,
             Err(e) => panic!("Error: {}", e),
         };
@@ -124,12 +121,12 @@ mod tests {
 
     #[tokio::test]
     async fn test_alternate_language() {
-        let de_status = match get_status(801, "de-DE").await {
+        let de_status = match get_status(801, Language::German).await {
             Ok(status) => status,
             Err(e) => panic!("Error: {}", e),
         };
 
-        let en_status = match get_status(801, "en-US").await {
+        let en_status = match get_status(801, Language::English).await {
             Ok(status) => status,
             Err(e) => panic!("Error: {}", e),
         };
