@@ -6,10 +6,20 @@ use crate::models::api::{Status, WarInfo};
 ///
 /// Arguments:
 ///    war_id: i64 - The ID of the war to get the status of
-pub fn get_status(war_id: i64) -> Result<Status, reqwest::Error> {
+///     language: &str - The language to get the status in, in language-country format (e.g. en-US)
+pub fn get_status(war_id: i64, language: &str) -> Result<Status, reqwest::Error> {
     let url = format!("{}/WarSeason/{}/Status", BASE_URL, war_id);
 
-    let response = reqwest::blocking::get(url).unwrap();
+    let language = if language.is_empty() { "en-US" } else { language };
+
+    let mut headers = reqwest::header::HeaderMap::new();
+    headers.insert("Accept-Language", language.parse().unwrap());
+
+    let response = reqwest::blocking::Client::new()
+        .get(url)
+        .headers(headers)
+        .send()?;
+
 
     let mut status: Status = response.json()?;
 

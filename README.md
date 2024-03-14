@@ -25,7 +25,7 @@ helldivers_rs = "0.1"
 
 The library provides the following functions:
 
-    get_status(war_id: i64) -> Result<Status, reqwest::Error>: Get the current status of a war.
+    get_status(war_id: i64, language: &str) -> Result<Status, reqwest::Error>: Get the current status of a war.
     get_war_info(war_id: i64) -> Result<WarInfo, reqwest::Error>: Get information about a specific war.
     get_planet_name(id: i64) -> String: Get the name of a planet by its ID.
     get_faction_name(id: i64) -> String: Get the name of a faction by its ID.
@@ -41,7 +41,7 @@ use helldivers_rs;
 fn main() {
     // Get the current status of a war
     let war_id = 801;  // The war ID for the current war
-    let status = helldivers_rs::get_status(war_id).unwrap();
+    let status = helldivers_rs::get_status(war_id, "en-US").unwrap();
     println!("Current Message: {}", status.global_events[0].message);
 
     // Get information about a specific war

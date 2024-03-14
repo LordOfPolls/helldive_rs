@@ -56,7 +56,7 @@ mod tests {
 
     #[test]
     fn test_get_status() {
-        let _status = match get_status(801) {
+        let _status = match get_status(801, "") {
             Ok(status) => status,
             Err(e) => panic!("Error: {}", e),
         };
@@ -113,13 +113,28 @@ mod tests {
 
     #[test]
     fn test_status_planet_name() {
-        let status = match get_status(801) {
+        let status = match get_status(801, "") {
             Ok(status) => status,
             Err(e) => panic!("Error: {}", e),
         };
         for planet_status in status.planet_status {
             assert!(!planet_status.planet_name.is_empty())
         }
+    }
+
+    #[test]
+    fn test_alternate_language() {
+        let de_status = match get_status(801, "de-DE") {
+            Ok(status) => status,
+            Err(e) => panic!("Error: {}", e),
+        };
+
+        let en_status  = match get_status(801, "en-US") {
+            Ok(status) => status,
+            Err(e) => panic!("Error: {}", e),
+        };
+
+        assert_ne!(de_status.global_events[0].message, en_status.global_events[0].message);
     }
 
 }
