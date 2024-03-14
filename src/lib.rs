@@ -12,6 +12,7 @@ pub use requests::{get_status, get_war_info};
 
 pub const BASE_URL: &str = "https://api.live.prod.thehelldiversgame.com/api";
 
+pub static AVAILABLE_LANGUAGES: Lazy<Vec<&str>> = Lazy::new(|| vec!["en-US", "de-DE", "es-ES", "ru-RU", "fr-FR", "it-IT", "pl-PL", "zh-Hans"]);
 pub static PLANETS: Lazy<HashMap<i64, Planet>> = Lazy::new(load_res::load_planets);
 pub static FACTIONS: Lazy<HashMap<i64, models::Faction>> = Lazy::new(load_res::load_factions);
 pub static SECTORS: Lazy<HashMap<i64, models::Sector>> = Lazy::new(load_res::load_sectors);
