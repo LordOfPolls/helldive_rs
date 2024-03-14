@@ -1,6 +1,7 @@
 use crate::BASE_URL;
 use crate::models::api::{Status, WarInfo};
 use crate::models::Language;
+use crate::error::HelldiversError;
 
 
 /// Get the current status of a war
@@ -8,7 +9,7 @@ use crate::models::Language;
 /// Arguments:
 ///    war_id: i64 - The ID of the war to get the status of
 ///    language: &str - The language to get the status in, in language-country format (e.g. en-US)
-pub async fn get_status(war_id: i64, language: Language) -> Result<Status, reqwest::Error> {
+pub async fn get_status(war_id: i64, language: Language) -> Result<Status, HelldiversError> {
     let url = format!("{}/WarSeason/{}/Status", BASE_URL, war_id);
 
     let mut headers = reqwest::header::HeaderMap::new();
@@ -42,7 +43,7 @@ pub async fn get_status(war_id: i64, language: Language) -> Result<Status, reqwe
 ///
 /// Arguments:
 ///   war_id: i64 - The ID of the war to get the information for
-pub async fn get_war_info(war_id: i64) -> Result<WarInfo, reqwest::Error> {
+pub async fn get_war_info(war_id: i64) -> Result<WarInfo, HelldiversError> {
     let url = format!("{}/WarSeason/{}/WarInfo", BASE_URL, war_id);
 
     let response = reqwest::get(url).await?;
