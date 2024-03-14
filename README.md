@@ -18,7 +18,7 @@ cargo add helldivers_rs
 Or add the following line to your Cargo.toml:
 ```toml
 [dependencies]
-helldivers_rs = "0.2"
+helldivers_rs = "0.3"
 ```
 
 # API Reference
