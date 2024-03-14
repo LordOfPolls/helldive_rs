@@ -1,4 +1,9 @@
-# Helldivers Rust API Wrapper
+# Helldive_rs 2 Rust API Wrapper
+![GitHub Release](https://img.shields.io/github/v/release/LordOfPolls/helldive_rs?label=GitHub%20Release)
+![Crates.io Version](https://img.shields.io/crates/v/helldive_rs?label=crates.io%20Version)
+![Crates.io Total Downloads](https://img.shields.io/crates/d/helldive_rs)
+![Crates.io License](https://img.shields.io/crates/l/helldive_rs)
+
 
 A Rust wrapper for the unofficial Helldivers API. This library provides an easy way to interact with the Helldivers API 
 and retrieve information about wars, planets, factions, and sectors.
@@ -6,7 +11,9 @@ and retrieve information about wars, planets, factions, and sectors.
 Please do note, the Helldivers API is unofficial and may be subject to change at any time. 
 More functions will be added as the API is reverse-engineered.
 
-This library is not affiliated with Arrowhead Game Studios or Sony Interactive Entertainment.
+This library is not affiliated with Arrowhead Game Studios or Sony Interactive Entertainment. 
+You are strongly encouraged to use the Helldivers API responsibly 
+and to take care not to overload the servers... _more than they already are._
 
 # Installation
 
@@ -27,9 +34,9 @@ The library provides the following functions:
 
     get_status(war_id: i64, language: &str) -> Result<Status, reqwest::Error>: Get the current status of a war.
     get_war_info(war_id: i64) -> Result<WarInfo, reqwest::Error>: Get information about a specific war.
-    get_planet_name(id: i64) -> String: Get the name of a planet by its ID.
-    get_faction_name(id: i64) -> String: Get the name of a faction by its ID.
-    get_sector_name(id: i64) -> String: Get the name of a sector by its ID.
+    get_planet_name(id: i64) -> Option<String>: Get the name of a planet by its ID.
+    get_faction_name(id: i64) -> Option<String>: Get the name of a faction by its ID.
+    get_sector_name(id: i64) -> Option<String>: Get the name of a sector by its ID.
 
 For more details about the structs and their fields, please refer to the source code documentation.
 
