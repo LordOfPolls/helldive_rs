@@ -6,7 +6,8 @@ use crate::models::{Planet, Faction, Sector};
 
 const RAW_PLANETS: &str = include_str!("../res/planets.toml");
 
-// const RAW_EFFECTS: &str = include_str!("../res/effects.toml");
+// const RAW_EFFECTS: &str = include_str!("../res/effects.toml");  
+// ToDo: Implement effects once their structure is known
 const RAW_FACTIONS: &str = include_str!("../res/factions.toml");
 const RAW_SECTORS: &str = include_str!("../res/sectors.toml");
 

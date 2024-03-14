@@ -37,6 +37,11 @@ The library provides the following functions:
     get_planet_name(id: i64) -> Option<String>: Get the name of a planet by its ID.
     get_faction_name(id: i64) -> Option<String>: Get the name of a faction by its ID.
     get_sector_name(id: i64) -> Option<String>: Get the name of a sector by its ID.
+    // utils
+    get_total_player_count(status: &Status) -> i64: Get the total number of players in a war.
+    get_top_planets_by_player_count(status: &Status, count: usize) -> Vec<(&PlanetStatus, i64)>: Get the top planets by player count.
+    get_faction_distribution(status: &Status) -> Hashmap<i64, i64>: Get the distribution of factions.
+
 
 For more details about the structs and their fields, please refer to the source code documentation.
 
