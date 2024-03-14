@@ -6,7 +6,7 @@ use crate::models::api::{Status, WarInfo};
 ///
 /// Arguments:
 ///    war_id: i64 - The ID of the war to get the status of
-///     language: &str - The language to get the status in, in language-country format (e.g. en-US)
+///    language: &str - The language to get the status in, in language-country format (e.g. en-US)
 pub fn get_status(war_id: i64, language: &str) -> Result<Status, reqwest::Error> {
     let url = format!("{}/WarSeason/{}/Status", BASE_URL, war_id);
 

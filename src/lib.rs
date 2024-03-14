@@ -10,11 +10,19 @@ pub use models::Planet;
 pub use requests::{get_status, get_war_info};
 
 
+/// The base URL for the Helldivers API
 pub const BASE_URL: &str = "https://api.live.prod.thehelldiversgame.com/api";
 
+/// The available languages for the game
 pub static AVAILABLE_LANGUAGES: Lazy<Vec<&str>> = Lazy::new(|| vec!["en-US", "de-DE", "es-ES", "ru-RU", "fr-FR", "it-IT", "pl-PL", "zh-Hans"]);
+
+/// The planets in the game
 pub static PLANETS: Lazy<HashMap<i64, Planet>> = Lazy::new(load_res::load_planets);
+
+/// The active factions in the game
 pub static FACTIONS: Lazy<HashMap<i64, models::Faction>> = Lazy::new(load_res::load_factions);
+
+/// The sectors in the game
 pub static SECTORS: Lazy<HashMap<i64, models::Sector>> = Lazy::new(load_res::load_sectors);
 
 
