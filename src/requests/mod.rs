@@ -7,7 +7,7 @@ use crate::models::api::{Status, WarInfo};
 /// Arguments:
 ///    war_id: i64 - The ID of the war to get the status of
 ///    language: &str - The language to get the status in, in language-country format (e.g. en-US)
-pub fn get_status(war_id: i64, language: &str) -> Result<Status, reqwest::Error> {
+pub async fn get_status(war_id: i64, language: &str) -> Result<Status, reqwest::Error> {
     let url = format!("{}/WarSeason/{}/Status", BASE_URL, war_id);
 
     let language = if language.is_empty() { "en-US" } else { language };
@@ -15,13 +15,13 @@ pub fn get_status(war_id: i64, language: &str) -> Result<Status, reqwest::Error>
     let mut headers = reqwest::header::HeaderMap::new();
     headers.insert("Accept-Language", language.parse().unwrap());
 
-    let response = reqwest::blocking::Client::new()
+    let response = reqwest::Client::new()
         .get(url)
         .headers(headers)
-        .send()?;
+        .send()
+        .await?;
 
-
-    let mut status: Status = response.json()?;
+    let mut status: Status = response.json().await?;
 
     for campaign in &mut status.campaigns {
         campaign.planet_name = crate::get_planet_name(campaign.planet_index);
@@ -43,12 +43,12 @@ pub fn get_status(war_id: i64, language: &str) -> Result<Status, reqwest::Error>
 ///
 /// Arguments:
 ///   war_id: i64 - The ID of the war to get the information for
-pub fn get_war_info(war_id: i64) -> Result<WarInfo, reqwest::Error> {
+pub async fn get_war_info(war_id: i64) -> Result<WarInfo, reqwest::Error> {
     let url = format!("{}/WarSeason/{}/WarInfo", BASE_URL, war_id);
 
-    let response = reqwest::blocking::get(url).unwrap();
+    let response = reqwest::get(url).await?;
 
-    let mut war_info: WarInfo = response.json()?;
+    let mut war_info: WarInfo = response.json().await?;
 
     for planet_info in &mut war_info.planet_infos {
         planet_info.planet_name = crate::get_planet_name(planet_info.index);

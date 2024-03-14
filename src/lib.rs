@@ -63,17 +63,17 @@ pub fn get_sector_name(id: i64) -> String {
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_get_status() {
-        let _status = match get_status(801, "") {
+    #[tokio::test]
+    async fn test_get_status() {
+        let _status = match get_status(801, "").await {
             Ok(status) => status,
             Err(e) => panic!("Error: {}", e),
         };
     }
 
-    #[test]
-    fn test_get_war_info() {
-        let _war_info = match get_war_info(801) {
+    #[tokio::test]
+    async fn test_get_war_info() {
+        let _war_info = match get_war_info(801).await {
             Ok(war_info) => war_info,
             Err(e) => panic!("Error: {}", e),
         };
@@ -109,9 +109,9 @@ mod tests {
         assert_eq!(get_sector_name(0), "Sol");
     }
 
-    #[test]
-    fn test_war_info_planet_name() {
-        let war_info = match get_war_info(801) {
+    #[tokio::test]
+    async fn test_war_info_planet_name() {
+        let war_info = match get_war_info(801).await {
             Ok(war_info) => war_info,
             Err(e) => panic!("Error: {}", e),
         };
@@ -120,9 +120,9 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_status_planet_name() {
-        let status = match get_status(801, "") {
+    #[tokio::test]
+    async fn test_status_planet_name() {
+        let status = match get_status(801, "").await {
             Ok(status) => status,
             Err(e) => panic!("Error: {}", e),
         };
@@ -131,19 +131,18 @@ mod tests {
         }
     }
 
-    #[test]
-    fn test_alternate_language() {
-        let de_status = match get_status(801, "de-DE") {
+    #[tokio::test]
+    async fn test_alternate_language() {
+        let de_status = match get_status(801, "de-DE").await {
             Ok(status) => status,
             Err(e) => panic!("Error: {}", e),
         };
 
-        let en_status  = match get_status(801, "en-US") {
+        let en_status = match get_status(801, "en-US").await {
             Ok(status) => status,
             Err(e) => panic!("Error: {}", e),
         };
 
         assert_ne!(de_status.global_events[0].message, en_status.global_events[0].message);
     }
-
 }
