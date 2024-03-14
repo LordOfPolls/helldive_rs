@@ -1,12 +1,12 @@
 [package]
-name = "helldivers_rs"
+name = "helldive_rs"
 version = "0.3.1"
 edition = "2021"
 authors = ["LordOfPolls <dev@lordofpolls.com"]
 description = "A rust wrapper for the unofficial helldivers API."
 readme = "README.md"
-homepage = "https://github.com/LordOfPolls/helldivers.rs"
-repository = "https://github.com/LordOfPolls/helldivers.rs"
+homepage = "https://github.com/LordOfPolls/helldive_rs"
+repository = "https://github.com/LordOfPolls/helldive_rs"
 license = "MIT"
 keywords = ["helldivers", "api", "wrapper", "async"]
 categories = ["api-bindings", "web-programming"]
