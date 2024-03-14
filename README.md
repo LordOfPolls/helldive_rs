@@ -25,7 +25,7 @@ cargo add helldive_rs
 Or add the following line to your Cargo.toml:
 ```toml
 [dependencies]
-helldive_rs  = "0.4"
+helldive_rs  = "0.5"
 ```
 
 # API Reference
