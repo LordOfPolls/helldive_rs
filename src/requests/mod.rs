@@ -20,6 +20,10 @@ pub async fn get_status(war_id: i64, language: Language) -> Result<Status, Helld
         .headers(headers)
         .send()
         .await?;
+    
+    if !&response.status().is_success() {
+        return Err(HelldiversError::from(response));
+    }
 
     let mut status: Status = response.json().await?;
 
@@ -47,6 +51,10 @@ pub async fn get_war_info(war_id: i64) -> Result<WarInfo, HelldiversError> {
     let url = format!("{}/WarSeason/{}/WarInfo", BASE_URL, war_id);
 
     let response = reqwest::get(url).await?;
+
+    if !&response.status().is_success() {
+        return Err(HelldiversError::from(response));
+    }
 
     let mut war_info: WarInfo = response.json().await?;
 
