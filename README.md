@@ -8,6 +8,18 @@ More functions will be added as the API is reverse-engineered.
 
 This library is not affiliated with Arrowhead Game Studios or Sony Interactive Entertainment.
 
+# Installation
+
+Run the following Cargo command in your project directory:
+```shell
+cargo add helldivers_rs
+```
+
+Or add the following line to your Cargo.toml:
+```toml
+[dependencies]
+helldivers_rs = "0.1"
+```
 
 # API Reference
 
