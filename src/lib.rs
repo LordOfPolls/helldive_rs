@@ -30,33 +30,24 @@ pub static SECTORS: Lazy<HashMap<i64, models::Sector>> = Lazy::new(load_res::loa
 ///
 /// Arguments:
 ///   id: i64 - The ID of the planet
-pub fn get_planet_name(id: i64) -> String {
-    match PLANETS.get(&id) {
-        Some(planet) => planet.name.clone(),
-        None => format!("Unknown Planet {}", id),
-    }
+pub fn get_planet_name(id: i64) -> Option<String> {
+    PLANETS.get(&id).map(|planet| planet.name.clone())
 }
 
 /// Get the name of a faction
 ///
 /// Arguments:
 ///    id: i64 - The ID of the faction
-pub fn get_faction_name(id: i64) -> String {
-    match FACTIONS.get(&id) {
-        Some(faction) => faction.name.clone(),
-        None => format!("Unknown Faction {}", id),
-    }
+pub fn get_faction_name(id: i64) -> Option<String> {
+    FACTIONS.get(&id).map(|faction| faction.name.clone())
 }
 
 /// Get the name of a sector
 ///
 /// Arguments:
 ///   id: i64 - The ID of the sector
-pub fn get_sector_name(id: i64) -> String {
-    match SECTORS.get(&id) {
-        Some(sector) => sector.name.clone(),
-        None => format!("Unknown Sector {}", id),
-    }
+pub fn get_sector_name(id: i64) -> Option<String> {
+    SECTORS.get(&id).map(|sector| sector.name.clone())
 }
 
 #[cfg(test)]
@@ -96,17 +87,17 @@ mod tests {
 
     #[test]
     fn test_get_planet_name() {
-        assert_eq!(get_planet_name(0), "Super Earth");
+        assert_eq!(get_planet_name(0).unwrap_or_default(), "Super Earth");
     }
 
     #[test]
     fn test_get_faction_name() {
-        assert_eq!(get_faction_name(1), "Humans");
+        assert_eq!(get_faction_name(1).unwrap_or_default(), "Humans");
     }
 
     #[test]
     fn test_get_sector_name() {
-        assert_eq!(get_sector_name(0), "Sol");
+        assert_eq!(get_sector_name(0).unwrap_or_default(), "Sol");
     }
 
     #[tokio::test]
