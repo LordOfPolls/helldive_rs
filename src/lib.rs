@@ -5,6 +5,7 @@ mod load_res;
 mod models;
 mod requests;
 mod utils;
+mod error;
 
 pub use models::api::{Status, WarInfo, PlanetStatus, PlanetAttack, Campaign, GlobalEvent, HomeWorld, Position, PlanetInfo};
 pub use models::{Planet, Faction, Sector, Language};
