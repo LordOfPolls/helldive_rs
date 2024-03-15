@@ -1,5 +1,5 @@
 use crate::BASE_URL;
-use crate::models::api::{Status, WarInfo};
+use crate::models::api::{Status, WarInfo, WarTime};
 use crate::models::Language;
 use crate::error::HelldiversError;
 
@@ -63,4 +63,22 @@ pub async fn get_war_info(war_id: i64) -> Result<WarInfo, HelldiversError> {
     }
 
     Ok(war_info)
+}
+
+/// Get the current time of a war
+/// 
+/// Arguments:
+///  war_id: i64 - The ID of the war to get the time of
+pub async fn get_war_time(war_id: i64) -> Result<i64, HelldiversError> {
+    let url = format!("{}/WarSeason/{}/WarTime", BASE_URL, war_id);
+
+    let response = reqwest::get(url).await?;
+
+    if !&response.status().is_success() {
+        return Err(HelldiversError::from(response));
+    }
+
+    let war_time: WarTime = response.json().await?;
+
+    Ok(war_time.time)
 }

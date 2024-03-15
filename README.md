@@ -32,8 +32,9 @@ helldive_rs  = "0.5"
 
 The library provides the following functions:
 
-    get_status(war_id: i64, language: &str) -> Result<Status, reqwest::Error>: Get the current status of a war.
-    get_war_info(war_id: i64) -> Result<WarInfo, reqwest::Error>: Get information about a specific war.
+    get_status(war_id: i64, language: &str) -> Result<Status, HelldiversError>: Get the current status of a war.
+    get_war_info(war_id: i64) -> Result<WarInfo, HelldiversError>: Get information about a specific war.
+    get_war_time(war_id: i64) -> Result<WarTime, HelldiversError>: Get the current time of a war.
     get_planet_name(id: i64) -> Option<String>: Get the name of a planet by its ID.
     get_faction_name(id: i64) -> Option<String>: Get the name of a faction by its ID.
     get_sector_name(id: i64) -> Option<String>: Get the name of a sector by its ID.

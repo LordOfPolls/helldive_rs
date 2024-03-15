@@ -7,9 +7,9 @@ mod requests;
 mod utils;
 mod error;
 
-pub use models::api::{Status, WarInfo, PlanetStatus, PlanetAttack, Campaign, GlobalEvent, HomeWorld, Position, PlanetInfo};
+pub use models::api::{Status, WarInfo, PlanetStatus, PlanetAttack, Campaign, GlobalEvent, HomeWorld, Position, PlanetInfo, WarTime};
 pub use models::{Planet, Faction, Sector, Language};
-pub use requests::{get_status, get_war_info};
+pub use requests::{get_status, get_war_info, get_war_time};
 pub use utils::{get_total_player_count, get_top_planets_by_player_count, get_faction_distribution};
 
 /// The base URL for the Helldivers API
@@ -163,5 +163,13 @@ mod tests {
         };
         let distribution = get_faction_distribution(&status);
         assert!(!distribution.is_empty());
+    }
+    
+    #[tokio::test]
+    async fn test_war_time() {
+        let _ = match get_war_time(801).await {
+            Ok(war_time) => war_time,
+            Err(e) => panic!("Error: {}", e),
+        };
     }
 }
