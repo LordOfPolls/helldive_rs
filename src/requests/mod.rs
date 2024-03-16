@@ -8,7 +8,7 @@ use crate::error::HelldiversError;
 ///
 /// Arguments:
 ///    war_id: i64 - The ID of the war to get the status of
-///    language: &str - The language to get the status in, in language-country format (e.g. en-US)
+///  language: Language - The language to get the news feed in
 pub async fn get_status(war_id: i64, language: Language) -> Result<Status, HelldiversError> {
     let url = format!("{}/WarSeason/{}/Status", BASE_URL, war_id);
 
@@ -83,6 +83,11 @@ pub async fn get_war_time(war_id: i64) -> Result<i64, HelldiversError> {
     Ok(war_time.time)
 }
 
+// Get the news feed for a war
+///
+/// Arguments:
+///   war_id: i64 - The ID of the war to get the news feed for
+///  language: Language - The language to get the news feed in
 pub async fn get_news_feed(war_id: i64, language: Language) -> Result<Vec<NewsItem>, HelldiversError> {
     let url = format!("{}/NewsFeed/{}", BASE_URL, war_id);
 
