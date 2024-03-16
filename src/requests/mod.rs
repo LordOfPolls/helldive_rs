@@ -1,5 +1,5 @@
 use crate::BASE_URL;
-use crate::models::api::{Status, WarInfo, WarTime};
+use crate::models::api::{Status, WarInfo, WarTime, NewsItem};
 use crate::models::Language;
 use crate::error::HelldiversError;
 
@@ -81,4 +81,25 @@ pub async fn get_war_time(war_id: i64) -> Result<i64, HelldiversError> {
     let war_time: WarTime = response.json().await?;
 
     Ok(war_time.time)
+}
+
+pub async fn get_news_feed(war_id: i64, language: Language) -> Result<Vec<NewsItem>, HelldiversError> {
+    let url = format!("{}/NewsFeed/{}", BASE_URL, war_id);
+
+    let mut headers = reqwest::header::HeaderMap::new();
+    headers.insert("Accept-Language", language.to_str().parse().unwrap());
+
+    let response = reqwest::Client::new()
+        .get(url)
+        .headers(headers)
+        .send()
+        .await?;
+
+    if !&response.status().is_success() {
+        return Err(HelldiversError::from(response));
+    }
+
+    let news_feed: Vec<NewsItem> = response.json().await?;
+
+    Ok(news_feed)
 }
