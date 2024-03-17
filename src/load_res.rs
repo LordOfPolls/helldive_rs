@@ -30,10 +30,18 @@ pub fn load_factions() -> HashMap<i64, Faction> {
 }
 
 pub fn load_sectors() -> HashMap<i64, Sector> {
-    let sectors: HashMap<String, String> = from_str(RAW_SECTORS).unwrap();
+    let sectors: HashMap<String, toml::Value> = from_str(RAW_SECTORS).unwrap();
     let mut sector_map: HashMap<i64, Sector> = HashMap::new();
-    for (id, name) in sectors {
-        sector_map.insert(id.parse().unwrap(), Sector{id: id.parse().unwrap(), name});
+
+    for (name, value) in sectors {
+        let id = value.get("id").unwrap().as_integer().unwrap();
+        let planets = value.get("planets").unwrap().as_array().unwrap()
+            .iter()
+            .map(|v| v.as_integer().unwrap())
+            .collect();
+
+        sector_map.insert(id, Sector { id, name, planets });
     }
+
     sector_map
 }

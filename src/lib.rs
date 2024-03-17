@@ -186,4 +186,25 @@ mod tests {
         };
         assert!(!news_feed.is_empty());
     }
+
+    #[tokio::test]
+    async fn test_sector_planet_mapping () {
+        // Ensure that our sector to planet mapping is correct
+        let war_info = match get_war_info(801).await {
+            Ok(war_info) => war_info,
+            Err(e) => panic!("Error: {}", e),
+        };
+
+        let planet_info = war_info.planet_infos;
+        let planet_info_map: HashMap<i64, &PlanetInfo> = planet_info.iter().map(|info| (info.index, info)).collect();
+
+        for (_, sector) in SECTORS.iter() {
+            for planet_index in &sector.planets {
+                if let Some(info) = planet_info_map.get(planet_index) {
+                    assert_eq!(sector.id, info.sector);
+                    break;
+                }
+            }
+        }
+    }
 }
